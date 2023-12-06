@@ -17,9 +17,9 @@ public class BusTicketModel {
     private String address;
     private String code_ticket;
     private int num_tickets;
-    @OneToOne
-    @JoinColumn(name = "trip_id", unique = true)
-    private TripModel trip_id;
+    @ManyToOne
+    @JoinColumn(name = "trip_id")
+    private TripModel trip;
     @ManyToMany
     @JoinTable(name = "customer_tickes",
     joinColumns = @JoinColumn(name = "customer_id"),

@@ -19,11 +19,15 @@ public class BusSlotModel {
     private String name_slot;
     @ColumnDefault("true")
     private boolean is_available;
-    @JsonIgnore
-    @OneToMany(mappedBy = "sloots")
-    private List<BusTicketModel> tickets;
+//    @ManyToOne
+//    @JoinColumn(name = "trip_id")
+    private UUID trip_id;
+//    @JsonIgnore
+//    @OneToMany(mappedBy = "sloots")
+//    private List<BusTicketModel> tickets;
     @OneToOne
     private BusFloorModel bus_floor;
     @OneToOne
     private BusTypeModel bus_type;
+
 }

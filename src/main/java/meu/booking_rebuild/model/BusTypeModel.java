@@ -14,8 +14,10 @@ public class BusTypeModel {
     private UUID id;
     private String name;
     private int maxslot;
-    @Lob
+    private int numbers_floor;
     @Column(columnDefinition = "TEXT")
     private String convenients;
+    @OneToMany(mappedBy = "type") // Đổi từ @OneToOne thành @OneToMany
+    private List<TripModel> trips;
 
 }

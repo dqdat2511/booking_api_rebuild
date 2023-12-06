@@ -2,9 +2,9 @@ package meu.booking_rebuild.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
-
+import java.util.List;
 import java.sql.Time;
-import java.util.Date;
+import java.sql.Date;
 
 @Entity
 @Data
@@ -17,9 +17,11 @@ public class TimeTripModel {
     private Time end_time;
     private Date start_day;
     private Date end_day;
-    @OneToOne
-    @JoinColumn(name = "trip_id", unique = true)
-    private TripModel trip;
+//    @OneToOne
+//    @JoinColumn(name = "trip_id", unique = true)
+//    private TripModel trip;
+    @OneToMany(mappedBy = "timetrip") // Đổi từ @OneToOne thành @OneToMany
+    private List<TripModel> trips;
 
 
 }
