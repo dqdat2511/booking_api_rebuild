@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.UUID;
 
@@ -23,6 +24,7 @@ public class InitController {
     @Autowired
     private BusSlotRepo slot_repo;
     @PostMapping
+    @ResponseBody
     public ResponseEntity<?> initTrip(@RequestBody TripModel model){
         try{
             UUID id_type = model.getType().getId();
