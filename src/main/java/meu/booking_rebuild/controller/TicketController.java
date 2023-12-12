@@ -6,16 +6,16 @@ import meu.booking_rebuild.model.TripModel;
 import meu.booking_rebuild.repository.BusSlotRepo;
 import meu.booking_rebuild.repository.TicketRepo;
 import meu.booking_rebuild.repository.TripRepo;
+import meu.booking_rebuild.response.TicketResponse;
 import meu.booking_rebuild.service.CodeService;
+import org.hibernate.mapping.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
 
@@ -48,7 +48,12 @@ public class TicketController {
                 if(slot == null){
                     return new ResponseEntity<>("FAIL", HttpStatus.INTERNAL_SERVER_ERROR);
                 }
-                slot.set_available(false);
+                if(slot.is_available()) {
+                    slot.set_available(false);
+                }
+                else {
+                    return new ResponseEntity<>("FAIL", HttpStatus.INTERNAL_SERVER_ERROR);
+                }
                 slotRepo.save(slot);
             }
             repo.save(model);
@@ -62,5 +67,21 @@ public class TicketController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return new ResponseEntity<>("OK", HttpStatus.CREATED);
+    }
+    @GetMapping
+    @ResponseBody
+    public ResponseEntity<TicketResponse> getTickets(@RequestParam UUID id){
+        BusTicketModel model = repo.findBusTicketModelById(id);
+        String name_Trip = model.getTrip().getName();
+        String name_customer = model.getCustomer_name();
+        String phone = model.getCustomer_phone();
+        String code = model.getCode_ticket();
+        ArrayList<String> seat = new ArrayList<>();
+        for(BusSlotModel slot: model.getSloots()){
+            seat.add(slot.getName_slot());
+        }
+        Integer number_tickets = model.getNum_tickets();
+        TicketResponse response = new TicketResponse(name_Trip,name_customer,phone,code,number_tickets, seat);
+        return new ResponseEntity<>(response, HttpStatus.OK) ;
     }
 }
