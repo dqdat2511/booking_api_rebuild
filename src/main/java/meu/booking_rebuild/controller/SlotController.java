@@ -13,10 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,17 +31,20 @@ public class SlotController {
     @Autowired
     private ReportService service;
     @GetMapping
+    @ResponseBody
     public ResponseEntity<?> getSeat(){
 //        List<BusSlotModel>  = repo.findAll();
         List<BusSlotModel> list = repo.findAllByOrderByTrip_idAscNameAsc();
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
     @GetMapping("/trip")
+    @ResponseBody
     public ResponseEntity<?> getSeatForTrip(@RequestParam UUID id){
         List<BusSlotModel> models = repo.findBusSlotModelByTripId(id);
         return new ResponseEntity<>(models, HttpStatus.OK);
     }
     @GetMapping("/list")
+    @ResponseBody
     public ResponseEntity<?> GetList(HttpServletResponse Httpresponse, @RequestParam UUID id) throws Exception {
 //        TripModel tripModel = tripRepo.findTripModelById(id);
         System.out.println(id);

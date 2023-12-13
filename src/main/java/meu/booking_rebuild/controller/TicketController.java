@@ -29,6 +29,7 @@ public class TicketController {
     @Autowired
     private TripRepo tripRepo;
     @PostMapping
+    @ResponseBody
     public ResponseEntity<?> addTicket(@RequestBody BusTicketModel model,
                                        @RequestParam UUID id_trip){
         try{
