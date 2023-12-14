@@ -21,5 +21,5 @@ public class TripResponse {
     private Time start_time;
     private Time end_time;
     private int number_seats;
-
+    private boolean isFinished;
 }

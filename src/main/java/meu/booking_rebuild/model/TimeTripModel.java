@@ -1,5 +1,7 @@
 package meu.booking_rebuild.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import java.util.List;
@@ -20,7 +22,10 @@ public class TimeTripModel {
 //    @OneToOne
 //    @JoinColumn(name = "trip_id", unique = true)
 //    private TripModel trip;
+    @JsonIgnore
+    @JsonBackReference
     @OneToMany(mappedBy = "timetrip") // Đổi từ @OneToOne thành @OneToMany
+
     private List<TripModel> trips;
 
 
