@@ -1,5 +1,7 @@
 package meu.booking_rebuild.controller;
 
+import meu.booking_rebuild.dto.BusTypeDto;
+import meu.booking_rebuild.dto.TimeDto;
 import meu.booking_rebuild.model.TimeTripModel;
 import meu.booking_rebuild.model.TripModel;
 import meu.booking_rebuild.repository.TripRepo;
@@ -54,7 +56,9 @@ public class TripController {
                 if((start_day.equals(end_day) && (temp.isAfter(end_time.toLocalTime())) &&  (currentDate.equals(end_day))|| (currentDate.after(end_day))) || (currentDate.equals(end_day)) && (temp.isAfter(end_time.toLocalTime()))){
                     finished = true;
                 }
-                TripResponse response = new TripResponse(name, start_day, end_day, start_time, end_time, number_seats, finished);
+                BusTypeDto typeBus = new BusTypeDto(model.getType().getName(),model.getType().getMaxslot(),model.getType().getNumbers_floor(),model.getType().getConvenients());
+                TimeDto timeTrip = new TimeDto(start_time,end_time,start_day, end_day);
+                TripResponse response = new TripResponse(model.getId(),name, timeTrip, typeBus, finished);
                 tripResponses.add(response);
             }
             return new ResponseEntity<>(tripResponses, HttpStatus.OK);
@@ -81,16 +85,9 @@ public class TripController {
                 finished = true;
             }
             LocalTime temp_time = end_time.toLocalTime();
-//            LocalDateTime endDateTime = combineDateTime(temp_day, temp_time);
-//            System.out.println(endDateTime);
-//            if (now.isAfter(endDateTime)) {
-//                System.out.println("Thời gian hiện tại sau thời điểm kết thúc.");
-//            } else if (now.isBefore(endDateTime)) {
-//                System.out.println("Thời gian hiện tại trước thời điểm kết thúc.");
-//            } else {
-//                System.out.println("Thời điểm hiện tại là thời điểm kết thúc.");
-//            }
-            TripResponse response = new TripResponse(name, start_day, end_day, start_time, end_time, number_seats, finished);
+            BusTypeDto typeBus = new BusTypeDto(model.getType().getName(),model.getType().getMaxslot(),model.getType().getNumbers_floor(),model.getType().getConvenients());
+            TimeDto timeTrip = new TimeDto(start_time,end_time,start_day, end_day);
+            TripResponse response = new TripResponse(model.getId(),name, timeTrip, typeBus, finished);
             return new ResponseEntity<>(response, HttpStatus.OK);
         } catch (RuntimeException e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
