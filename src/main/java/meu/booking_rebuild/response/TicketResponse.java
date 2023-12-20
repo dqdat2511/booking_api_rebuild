@@ -17,5 +17,6 @@ public class TicketResponse {
     private String number_phone;
     private String code;
     private int number_tickets;
+    private String address;
     private List<String> seat;
 }

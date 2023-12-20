@@ -64,12 +64,14 @@ public class ReportService {
             HSSFRow dataRow = sheet.createRow(i + 1);
 
             dataRow.createCell(0).setCellValue(i + 1);
-            setCellValueAndAdjustWidth(dataRow.createCell(0), i+1 +"" , borderedCellStyle);
-            setCellValueAndAdjustWidth(dataRow.createCell(1), response.getName_customer() + "    ", borderedCellStyle);
-            setCellValueAndAdjustWidth(dataRow.createCell(2), response.getNumber_phone() + "    ", borderedCellStyle);
-            setCellValueAndAdjustWidth(dataRow.createCell(3), response.getCode() + "  ", borderedCellStyle);
-            setCellValueAndAdjustWidth(dataRow.createCell(4), String.valueOf(response.getNumber_tickets()) + "               ", borderedCellStyle);
-            setCellValueAndAdjustWidth(dataRow.createCell(5),    String.join(", ", response.getSeat()) , borderedCellStyle);
+            setCellValueAndAdjustWidth(dataRow.createCell(0), String.valueOf(i+1) , borderedCellStyle);
+            setCellValueAndAdjustWidth(dataRow.createCell(1), response.getName_customer() , borderedCellStyle);
+            setCellValueAndAdjustWidth(dataRow.createCell(2), response.getNumber_phone() , borderedCellStyle);
+            setCellValueAndAdjustWidth(dataRow.createCell(3), response.getCode() , borderedCellStyle);
+            setCellValueAndAdjustWidth(dataRow.createCell(4),    String.join(", ", response.getSeat()) , borderedCellStyle);
+            setCellValueAndAdjustWidth(dataRow.createCell(5),    String.join(", ", response.getAddress()) , borderedCellStyle);
+            setCellValueAndAdjustWidth(dataRow.createCell(6),  " " , borderedCellStyle);
+
         }
 
         HSSFRow headerRow = sheet.createRow(0);
@@ -77,11 +79,12 @@ public class ReportService {
         setCellValueAndAdjustWidth(headerRow.createCell(1), "Tên khách hàng" , borderedCellStyle);
         setCellValueAndAdjustWidth(headerRow.createCell(2), "Số điện thoại" , borderedCellStyle);
         setCellValueAndAdjustWidth(headerRow.createCell(3), "Mã vé đối soát" , borderedCellStyle);
-        setCellValueAndAdjustWidth(headerRow.createCell(4), "Số lượng vé" , borderedCellStyle);
-        setCellValueAndAdjustWidth(headerRow.createCell(5), "Vị trí ghế  " , borderedCellStyle);
+        setCellValueAndAdjustWidth(headerRow.createCell(4), "Vị trí ghế  " , borderedCellStyle);
+        setCellValueAndAdjustWidth(headerRow.createCell(5), "Địa chỉ rước " , borderedCellStyle);
+        setCellValueAndAdjustWidth(headerRow.createCell(6), "Đã rước" , borderedCellStyle);
         for (int i = 0; i < headerRow.getPhysicalNumberOfCells(); i++) {
             headerRow.getCell(i).setCellStyle(headerCellStyle);
-            sheet.setColumnWidth(i, 5000); // Set a specific width for columns (adjust as needed)
+            sheet.setColumnWidth(i, 5500); // Set a specific width for columns (adjust as needed)
         }
         httpResponse.setContentType("application/octet-stream");
         String headerKey = "Content-Disposition";

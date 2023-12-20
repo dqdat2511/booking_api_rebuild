@@ -62,7 +62,7 @@ public class SlotController {
                 seat.add(slot.getName_slot());
             }
             String name_trip = ticketModel.getTrip().getName();
-            TicketResponse response = new TicketResponse(name_trip,customer_name,number_phone,code,number_tickets,seat);
+            TicketResponse response = new TicketResponse(name_trip,customer_name,number_phone,code,number_tickets,ticketModel.getAddress(),seat);
             ticketResponses.add(response);
         }
 //        Httpresponse.setContentType("application/octet-stream");
