@@ -15,6 +15,7 @@ public class BusTypeModel {
     private String name;
     private int maxslot;
     private int numbers_floor;
+    private String number_plate;
     @Column(columnDefinition = "TEXT")
     private String convenients;
     @OneToMany(mappedBy = "type") // Đổi từ @OneToOne thành @OneToMany

@@ -81,8 +81,8 @@ public class TicketController {
         for(BusSlotModel slot: model.getSloots()){
             seat.add(slot.getName_slot());
         }
-        Integer number_tickets = model.getNum_tickets();
-        TicketResponse response = new TicketResponse(name_Trip,name_customer,phone,code,number_tickets, seat);
+        int number_tickets = model.getNum_tickets();
+        TicketResponse response = new TicketResponse(name_Trip,name_customer,phone,code,number_tickets, model.getAddress(), seat);
         return new ResponseEntity<>(response, HttpStatus.OK) ;
     }
 }

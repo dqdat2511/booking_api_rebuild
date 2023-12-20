@@ -14,9 +14,11 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BusTypeDto {
+    private UUID id;
     private String name;
     private int maxslot;
     private int numbers_floor;
+    private String number_plate;
     @Lob
     private String convenients;
 }

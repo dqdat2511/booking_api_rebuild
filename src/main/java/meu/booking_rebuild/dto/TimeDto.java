@@ -13,6 +13,7 @@ import java.sql.Time;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TimeDto {
+    private int id;
     private Time start_time;
     private Time end_time;
     private Date start_day;
