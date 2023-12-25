@@ -2,6 +2,7 @@ package meu.booking_rebuild.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.ColumnDefault;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import java.util.List;
@@ -15,6 +16,8 @@ public class TripModel {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     private String name;
+    @ColumnDefault("false")
+    private boolean is_finished;
     @ManyToOne
     @JoinColumn(name = "timetrip_id")
     private TimeTripModel timetrip;

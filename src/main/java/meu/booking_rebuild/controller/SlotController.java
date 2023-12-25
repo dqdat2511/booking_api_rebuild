@@ -7,10 +7,12 @@ import meu.booking_rebuild.model.TripModel;
 import meu.booking_rebuild.repository.BusSlotRepo;
 import meu.booking_rebuild.repository.TicketRepo;
 import meu.booking_rebuild.repository.TripRepo;
+import meu.booking_rebuild.response.CheckValidTripResponse;
 import meu.booking_rebuild.response.TicketResponse;
 import meu.booking_rebuild.service.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -43,20 +45,31 @@ public class SlotController {
         List<BusSlotModel> models = repo.findBusSlotModelByTripId(id);
         return new ResponseEntity<>(models, HttpStatus.OK);
     }
+    @GetMapping("check")
+    @ResponseBody
+    public CheckValidTripResponse checkPassanger(@RequestParam UUID id){
+        int count =  repo.getNumbersTripHavePassanger(id);
+        CheckValidTripResponse response = new CheckValidTripResponse();
+        if(count == 0){
+            response.setMessage("Have no passange");
+            response.setStatus(false);
+            return response;
+        }
+        response.setMessage("Have passanger");
+        response.setStatus(true);
+        return response;
+    }
     @GetMapping("/list")
     @ResponseBody
     public ResponseEntity<?> GetList(HttpServletResponse Httpresponse, @RequestParam UUID id) throws Exception {
-//        TripModel tripModel = tripRepo.findTripModelById(id);
-        System.out.println(id);
-        UUID new_id = id;
-        TripModel tripModel = tripRepo.findTripModelById(new_id);
+        TripModel tripModel = tripRepo.findTripModelById(id);
         List<BusTicketModel> ticketModels = ticketRepo.findBuTicketModelByTrip(tripModel);
         ArrayList<TicketResponse> ticketResponses = new ArrayList<>();
         for(BusTicketModel ticketModel: ticketModels){
             String customer_name = ticketModel.getCustomer_name();
             String code = ticketModel.getCode_ticket();
             String number_phone = ticketModel.getCustomer_phone();
-            Integer number_tickets = ticketModel.getNum_tickets();
+            int number_tickets = ticketModel.getNum_tickets();
             ArrayList<String> seat = new ArrayList<>();
             for(BusSlotModel slot: ticketModel.getSloots()){
                 seat.add(slot.getName_slot());

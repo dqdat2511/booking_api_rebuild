@@ -6,6 +6,7 @@ import meu.booking_rebuild.model.TripModel;
 import meu.booking_rebuild.repository.BusSlotRepo;
 import meu.booking_rebuild.repository.TicketRepo;
 import meu.booking_rebuild.repository.TripRepo;
+import meu.booking_rebuild.response.StatusResponse;
 import meu.booking_rebuild.response.TicketResponse;
 import meu.booking_rebuild.service.CodeService;
 import org.hibernate.mapping.List;
@@ -30,8 +31,8 @@ public class TicketController {
     private TripRepo tripRepo;
     @PostMapping
     @ResponseBody
-    public ResponseEntity<?> addTicket(@RequestBody BusTicketModel model,
-                                       @RequestParam UUID id_trip){
+    public ResponseEntity<?> addTicket(@RequestBody BusTicketModel model){
+        UUID id_trip = model.getTrip().getId();
         try{
             TripModel tripModel = new TripModel();
             tripModel = tripRepo.findTripModelById(id_trip);
@@ -58,6 +59,7 @@ public class TicketController {
                 slotRepo.save(slot);
             }
             repo.save(model);
+            model.getId();
 //            BusSlotModel slot = slotRepo.findBusSlotModelByTrip(model.getTrip());
 //            if(slot != null)
 //                repo.save(model);
@@ -69,6 +71,7 @@ public class TicketController {
         }
         return new ResponseEntity<>("OK", HttpStatus.CREATED);
     }
+
     @GetMapping
     @ResponseBody
     public ResponseEntity<TicketResponse> getTickets(@RequestParam UUID id){
