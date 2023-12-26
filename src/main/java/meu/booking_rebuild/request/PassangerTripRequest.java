@@ -10,6 +10,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class PassangerTripRequest {
     private UUID id;
     private String name;

@@ -12,6 +12,7 @@ import java.util.UUID;
 @Repository
 public interface PassangersRepository extends JpaRepository<PassangerModel, UUID> {
     PassangerModel findPassangerModelById(UUID id);
+
     @Query("SELECT new meu.booking_rebuild.request.PassangerTripRequest(id, name, phone) FROM PassangerModel  WHERE id= :id")
     Optional<PassangerTripRequest> findPassengerById(UUID id);
 }

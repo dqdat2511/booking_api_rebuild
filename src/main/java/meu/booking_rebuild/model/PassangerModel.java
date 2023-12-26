@@ -5,10 +5,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
-import lombok.Data;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.util.List;
 import java.util.UUID;
@@ -27,8 +25,11 @@ public class PassangerModel {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Pattern(regexp = "^[ a-zA-Z0-9_.'\\-]+?", message = "Invalid characters in name")
     private String name;
-    @Column(nullable = false, unique = true)
+
     @Pattern(regexp = "0\\d{9}", message = "Số điện thoại không hợp lệ")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @Column(nullable = false, unique = true)
     private String phone;
+    @ColumnDefault("0")
+    private int number_trip;
 }
