@@ -15,6 +15,7 @@ import meu.booking_rebuild.response.TripResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +30,7 @@ import java.util.ArrayList;
 import java.util.UUID;
 import java.util.List;
 @Controller
-@RequestMapping("api/v1/trip")
+@RequestMapping(path = "/trip", produces = MediaType.APPLICATION_JSON_VALUE)
 public class TripController {
     private Date currentDate = Date.valueOf(LocalDate.now());
     private LocalTime temp = LocalTime.now();

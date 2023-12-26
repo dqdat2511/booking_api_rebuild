@@ -12,6 +12,7 @@ import meu.booking_rebuild.service.CodeService;
 import org.hibernate.mapping.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +22,7 @@ import java.util.Date;
 import java.util.UUID;
 
 @Controller
-@RequestMapping("api/v1/ticket")
+@RequestMapping(path = "/ticket", produces = MediaType.APPLICATION_JSON_VALUE)
 public class TicketController {
     @Autowired
     private TicketRepo repo;
@@ -69,7 +70,7 @@ public class TicketController {
         }catch (RuntimeException e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return new ResponseEntity<>("OK", HttpStatus.CREATED);
+        return new ResponseEntity<>(model.getId(), HttpStatus.CREATED);
     }
 
     @GetMapping

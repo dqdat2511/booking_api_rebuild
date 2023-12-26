@@ -1,0 +1,27 @@
+package meu.booking_rebuild.response;
+
+import lombok.Data;
+
+/**
+ * Generic response with message
+ */
+@Data
+public class GenericResponse {
+    private String message;
+    private Boolean status;
+
+    public GenericResponse(String message, Boolean success) {
+        this.message = message;
+        this.status = success;
+    }
+
+    public GenericResponse(String message) {
+        this.message = message;
+        this.status = true;
+    }
+
+    public static GenericResponse fail(String message) {
+        return new GenericResponse(message, false);
+    }
+
+}
