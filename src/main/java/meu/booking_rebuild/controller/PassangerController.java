@@ -6,6 +6,9 @@ import meu.booking_rebuild.model.PassangerModel;
 import meu.booking_rebuild.repository.PassangersRepository;
 import meu.booking_rebuild.request.PassangerTripRequest;
 import meu.booking_rebuild.response.GenericResponse;
+import meu.booking_rebuild.response.PassangerTripResponse;
+import meu.booking_rebuild.service.abstractions.InterfacePassangerService;
+import meu.booking_rebuild.service.concretions.PassangerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -22,16 +25,24 @@ import java.util.UUID;
 public class PassangerController {
     @Autowired
     private  PassangersRepository passangersRepository;
+    private InterfacePassangerService passangerService;
+    PassangerTripResponse response = new PassangerTripResponse();
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<GenericResponse> addPassanger(@RequestBody @Valid PassangerModel model){
+    public ResponseEntity<PassangerTripResponse> addPassanger(@RequestBody @Valid PassangerModel model){
         try{
+            if(passangersRepository.findPassangerModelByPhone(model.getPhone())){
+
+                response.fail(Constants.MESSAGE_DUPLICATED_FAIL);
+                return new ResponseEntity<>(response, HttpStatusCode.valueOf(403));
+            }
             passangersRepository.save(model);
-            GenericResponse response = new GenericResponse(model.getId().toString());
+            response.success(Constants.MESSAGE_ADDED_SUCCESSFULLY, model.getId());
             return new ResponseEntity<>(response, HttpStatusCode.valueOf(201));
         }catch (RuntimeException e){
-            GenericResponse response = new GenericResponse(e.getMessage(), false);
-            return new ResponseEntity<>(response, HttpStatusCode.valueOf(201));
+            PassangerTripResponse response = new PassangerTripResponse();
+            response.fail(e.getMessage());
+            return new ResponseEntity<>(response, HttpStatusCode.valueOf(403));
         }
     }
     @GetMapping

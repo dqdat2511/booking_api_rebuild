@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -22,10 +23,16 @@ public class PassangerService implements InterfacePassangerService {
     }
     @Override
     public PassangerTripRequest findPassangerById(UUID id) throws RuntimeException {
-        PassangerTripRequest model = passangersRepository.findPassengerById(id)
+        return passangersRepository.findPassengerById(id)
                 .orElseThrow(() -> new RuntimeException("Not Found"));
-        return model;
     }
+
+    @Override
+    public boolean check(String phone) {
+        boolean passengerOptional = passangersRepository.findPassangerModelByPhone(phone);
+        return passengerOptional;
+    }
+
     @Override
     public PassangerTripRequest updatePassangerById(PassangerTripRequest request, UUID id) throws RuntimeException {
         PassangerModel model = passangersRepository.findPassangerModelById(id);
