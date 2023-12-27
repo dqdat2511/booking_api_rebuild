@@ -16,7 +16,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -50,6 +50,18 @@ public class PassangerController {
     public ResponseEntity<?> getPassanger(@RequestParam UUID id){
         try{
             Optional<PassangerTripRequest> model = passangersRepository.findPassengerById(id);
+            return new ResponseEntity<>(model, HttpStatusCode.valueOf(200));
+        }catch (RuntimeException e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatusCode.valueOf(
+                    403
+            ));
+        }
+    }
+    @GetMapping("search")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<?> getPassangerByPhone(@RequestParam String phone){
+        try{
+            List<PassangerTripRequest> model = passangersRepository.findPassangersByPhone(phone);
             return new ResponseEntity<>(model, HttpStatusCode.valueOf(200));
         }catch (RuntimeException e){
             return new ResponseEntity<>(e.getMessage(), HttpStatusCode.valueOf(

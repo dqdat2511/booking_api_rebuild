@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.List;
 
 @Service
 public class PassangerService implements InterfacePassangerService {
@@ -25,6 +26,11 @@ public class PassangerService implements InterfacePassangerService {
     public PassangerTripRequest findPassangerById(UUID id) throws RuntimeException {
         return passangersRepository.findPassengerById(id)
                 .orElseThrow(() -> new RuntimeException("Not Found"));
+    }
+
+    @Override
+    public List<PassangerTripRequest> findPassangerByPhone(String phone) {
+        return passangersRepository.findPassangersByPhone(phone);
     }
 
     @Override
