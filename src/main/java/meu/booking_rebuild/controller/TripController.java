@@ -25,6 +25,7 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.UUID;
 import java.util.List;
+@CrossOrigin(origins = "http://localhost:4200")
 @Controller
 @RequestMapping("api/v1/trip")
 public class TripController {

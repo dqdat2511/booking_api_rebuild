@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @Controller
 @RequestMapping("api/v1/ticket")
 public class TicketController {
@@ -30,8 +31,8 @@ public class TicketController {
     private TripRepo tripRepo;
     @PostMapping
     @ResponseBody
-    public ResponseEntity<?> addTicket(@RequestBody BusTicketModel model,
-                                       @RequestParam UUID id_trip){
+    public ResponseEntity<?> addTicket(@RequestBody BusTicketModel model){
+        UUID id_trip = model.getTrip().getId();
         try{
             TripModel tripModel = new TripModel();
             tripModel = tripRepo.findTripModelById(id_trip);
@@ -64,11 +65,13 @@ public class TicketController {
 //            assert slot != null;
 //            slot.set_available(false);
 //            slotRepo.save(slot);
+            return new ResponseEntity<>(model.getId(), HttpStatus.CREATED); // Return the ID of the saved instance
         }catch (RuntimeException e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return new ResponseEntity<>("OK", HttpStatus.CREATED);
+      //  return new ResponseEntity<>("OK", HttpStatus.CREATED);
     }
+
     @GetMapping
     @ResponseBody
     public ResponseEntity<TicketResponse> getTickets(@RequestParam UUID id){
