@@ -12,4 +12,6 @@ public interface TripRepo extends JpaRepository<TripModel, UUID> {
     TripModel findTripModelById(UUID id);
     @Query("select t from TripModel t join t.timetrip tt order by tt.start_day asc, tt.start_time asc")
     List<TripModel> findAllByOrderByTimeTripStartDayAscTimeTripStartTimeAsc();
+    @Query("select t from TripModel t where t.is_finished = false")
+    List<TripModel> findTripModelsBy_finishedEquals(Boolean finish);
 }
