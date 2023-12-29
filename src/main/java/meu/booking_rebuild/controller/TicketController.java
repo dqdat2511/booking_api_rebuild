@@ -6,11 +6,13 @@ import meu.booking_rebuild.model.TripModel;
 import meu.booking_rebuild.repository.BusSlotRepo;
 import meu.booking_rebuild.repository.TicketRepo;
 import meu.booking_rebuild.repository.TripRepo;
+import meu.booking_rebuild.response.StatusResponse;
 import meu.booking_rebuild.response.TicketResponse;
 import meu.booking_rebuild.service.CodeService;
 import org.hibernate.mapping.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +23,7 @@ import java.util.UUID;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @Controller
-@RequestMapping("api/v1/ticket")
+@RequestMapping(path = "/ticket", produces = MediaType.APPLICATION_JSON_VALUE)
 public class TicketController {
     @Autowired
     private TicketRepo repo;
@@ -59,6 +61,7 @@ public class TicketController {
                 slotRepo.save(slot);
             }
             repo.save(model);
+            model.getId();
 //            BusSlotModel slot = slotRepo.findBusSlotModelByTrip(model.getTrip());
 //            if(slot != null)
 //                repo.save(model);
@@ -69,7 +72,10 @@ public class TicketController {
         }catch (RuntimeException e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
       //  return new ResponseEntity<>("OK", HttpStatus.CREATED);
+
+
     }
 
     @GetMapping
