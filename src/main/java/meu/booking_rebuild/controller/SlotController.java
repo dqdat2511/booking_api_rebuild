@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @Controller
 @RequestMapping(path = "/seat", produces = MediaType.APPLICATION_JSON_VALUE)
 public class SlotController {
