@@ -4,7 +4,9 @@ import meu.booking_rebuild.config.Constants;
 import meu.booking_rebuild.model.AddressModel;
 import meu.booking_rebuild.repository.AddressRepository;
 import meu.booking_rebuild.request.AddressPassangerRequest;
+import meu.booking_rebuild.request.GetAddressRequest;
 import meu.booking_rebuild.response.GenericResponse;
+import meu.booking_rebuild.response.GetAddressResponse;
 import meu.booking_rebuild.service.abstractions.IAddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,6 +28,17 @@ public class AddressController {
             return response;
         }catch (RuntimeException e){
             throw new HttpMessageConversionException(e.getMessage());
+        }
+    }
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public GetAddressResponse getAddressByPhone(@RequestParam String phone){
+        try{
+            GetAddressResponse response = addressService.getAddressByPhone(phone);
+            return response;
+        }catch(RuntimeException e){
+            throw new RuntimeException(e.getMessage());
         }
     }
 }

@@ -29,6 +29,7 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.UUID;
 import java.util.List;
+@CrossOrigin(origins = "http://localhost:4200")
 @Controller
 @RequestMapping(path = "/trip", produces = MediaType.APPLICATION_JSON_VALUE)
 public class TripController {

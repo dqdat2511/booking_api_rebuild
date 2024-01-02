@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @Controller
 @RequestMapping(path = "/ticket", produces = MediaType.APPLICATION_JSON_VALUE)
 public class TicketController {
@@ -67,10 +68,14 @@ public class TicketController {
 //            assert slot != null;
 //            slot.set_available(false);
 //            slotRepo.save(slot);
+            return new ResponseEntity<>(model.getId(), HttpStatus.CREATED); // Return the ID of the saved instance
         }catch (RuntimeException e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return new ResponseEntity<>(model.getId(), HttpStatus.CREATED);
+
+      //  return new ResponseEntity<>("OK", HttpStatus.CREATED);
+
+
     }
 
     @GetMapping

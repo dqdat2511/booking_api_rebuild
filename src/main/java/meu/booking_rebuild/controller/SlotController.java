@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @Controller
 @RequestMapping(path = "/seat", produces = MediaType.APPLICATION_JSON_VALUE)
 public class SlotController {
@@ -83,10 +84,10 @@ public class SlotController {
 //        String headerKey = "Content-Disposition";
 //        String headerValue = "attachment;filename=danh_sach_hanh_khach.xls";
 //        Httpresponse.setHeader(headerKey, headerValue);
-        service.generateExcel(Httpresponse,ticketResponses);
-        Httpresponse.flushBuffer();
+//        service.generateExcel(Httpresponse,ticketResponses);
+//        Httpresponse.flushBuffer();
 //        System.out.println(tripModel);
-        return new ResponseEntity<>("Đã in", HttpStatus.OK);
+        return new ResponseEntity<>(ticketResponses, HttpStatus.OK);
 //
 //        TripModel tripModel = tripRepo.findTripModelById(model.getTrip().getId());
 //        System.out.println(tripModel);

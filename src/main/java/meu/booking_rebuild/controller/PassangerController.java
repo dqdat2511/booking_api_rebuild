@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping(path = "/passanger", produces = MediaType.APPLICATION_JSON_VALUE)
 public class PassangerController {
@@ -68,5 +69,12 @@ public class PassangerController {
                     403
             ));
         }
+    }
+
+    /*getAllPhone*/
+    @GetMapping("/phoneNumbers")
+    public ResponseEntity<?> getAllPhoneNumbers() {
+        List<String> allPhone = passangersRepository.findAllPhoneNumbers();
+        return new ResponseEntity<>(allPhone, HttpStatus.OK);
     }
 }
