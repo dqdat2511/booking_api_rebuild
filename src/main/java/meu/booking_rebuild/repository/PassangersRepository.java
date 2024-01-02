@@ -14,6 +14,7 @@ import java.util.List;
 @Repository
 public interface PassangersRepository extends JpaRepository<PassangerModel, UUID> {
     PassangerModel findPassangerModelById(UUID id);
+    PassangerModel getPassangerModelByPhone(String phone);
     @Query("SELECT CASE WHEN COUNT(p) > 0 THEN true ELSE false END FROM PassangerModel p WHERE p.phone = :phone")
     boolean findPassangerModelByPhone(@Param("phone")String phone);
     @Query("SELECT new meu.booking_rebuild.request.PassangerTripRequest(id, name, phone) FROM PassangerModel  WHERE id= :id")
