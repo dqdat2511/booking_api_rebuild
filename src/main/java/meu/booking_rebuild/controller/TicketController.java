@@ -2,6 +2,7 @@ package meu.booking_rebuild.controller;
 
 import meu.booking_rebuild.model.BusSlotModel;
 import meu.booking_rebuild.model.BusTicketModel;
+import meu.booking_rebuild.model.BusTypeModel;
 import meu.booking_rebuild.model.TripModel;
 import meu.booking_rebuild.repository.BusSlotRepo;
 import meu.booking_rebuild.repository.TicketRepo;
@@ -93,5 +94,23 @@ public class TicketController {
         int number_tickets = model.getNum_tickets();
         TicketResponse response = new TicketResponse(name_Trip,name_customer,phone,code,number_tickets, model.getAddress(), seat);
         return new ResponseEntity<>(response, HttpStatus.OK) ;
+    }
+
+    @PutMapping
+    @ResponseBody
+    public ResponseEntity<?> updateTicket(@RequestBody BusTicketModel model){
+
+        try{
+            UUID id = model.getId();
+            BusTicketModel temp = repo.findBusTicketModelById(id);
+            temp.setAddress(model.getAddress());
+            temp.setCustomer_name(model.getCustomer_name());
+            temp.setCustomer_phone(model.getCustomer_phone());
+            repo.save(temp);
+        }catch (RuntimeException e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>("OK", HttpStatus.OK);
+
     }
 }
