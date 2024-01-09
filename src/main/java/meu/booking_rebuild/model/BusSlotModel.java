@@ -3,6 +3,8 @@ package meu.booking_rebuild.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 import org.springframework.beans.factory.annotation.Value;
 
@@ -11,6 +13,8 @@ import java.util.UUID;
 
 @Entity
 @Data
+@Getter
+@Setter
 @Table(name = "bus_slot")
 public class BusSlotModel {
     @Id

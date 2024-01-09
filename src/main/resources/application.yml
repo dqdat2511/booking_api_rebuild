@@ -11,7 +11,7 @@ spring:
     driver-class-name: org.postgresql.Driver
 
     url: jdbc:postgresql://localhost:5432/Db_Booking
-    password: 123456789
+    password: 123456
     username: postgres
   jpa:
     hibernate:
