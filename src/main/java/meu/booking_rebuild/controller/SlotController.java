@@ -71,21 +71,24 @@ public class SlotController {
             String customer_name = ticketModel.getCustomer_name();
             String code = ticketModel.getCode_ticket();
             String number_phone = ticketModel.getCustomer_phone();
-            int number_tickets = ticketModel.getNum_tickets();
+         //   int number_tickets = ticketModel.getNum_tickets();
             ArrayList<String> seat = new ArrayList<>();
-            for(BusSlotModel slot: ticketModel.getSloots()){
-                seat.add(slot.getName_slot());
-            }
+           // for(BusSlotModel slot: ticketModel.getId_seat()){
+            //  ticketModel.getId_seat()
+           // }
             String name_trip = ticketModel.getTrip().getName();
-            TicketResponse response = new TicketResponse(name_trip,customer_name,number_phone,code,number_tickets,ticketModel.getAddress(),seat);
+            TicketResponse response = new TicketResponse(ticketModel.getId(),name_trip,customer_name,number_phone,code,ticketModel.getAddress(), ticketModel.getId_seat().getName_slot());
             ticketResponses.add(response);
         }
 //        Httpresponse.setContentType("application/octet-stream");
 //        String headerKey = "Content-Disposition";
 //        String headerValue = "attachment;filename=danh_sach_hanh_khach.xls";
 //        Httpresponse.setHeader(headerKey, headerValue);
-//        service.generateExcel(Httpresponse,ticketResponses);
-//        Httpresponse.flushBuffer();
+
+/*        service.generateExcel(Httpresponse,ticketResponses);
+        Httpresponse.flushBuffer();
+        để genarate file excel
+        */
 //        System.out.println(tripModel);
         return new ResponseEntity<>(ticketResponses, HttpStatus.OK);
 //
