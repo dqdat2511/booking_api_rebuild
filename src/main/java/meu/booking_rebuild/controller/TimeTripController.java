@@ -37,7 +37,7 @@ public class TimeTripController {
             model1.setEnd_day(model.getEnd_day());
             repo.save(model1);
         }catch (RuntimeException e){
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(model, HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return new ResponseEntity<>("OK", HttpStatus.OK);
     }

@@ -100,6 +100,7 @@ public class TicketController {
         return new ResponseEntity<>(response, HttpStatus.OK) ;
     }
 
+    @PutMapping
     public ResponseEntity<?> updateTicket(@RequestBody BusTicketModel ticket){
         try {
             BusTicketModel updatedticket = repo.findBusTicketModelById(ticket.getId());
